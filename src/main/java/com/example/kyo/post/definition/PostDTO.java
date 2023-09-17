@@ -21,4 +21,5 @@ public class PostDTO {
 	private UserDTO author;
 	private CommunityDTO community;
 	private Date createdAt;
+	private Long countLikes;
 }

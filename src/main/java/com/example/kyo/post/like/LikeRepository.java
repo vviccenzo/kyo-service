@@ -6,4 +6,6 @@ import com.example.kyo.post.like.definition.LikeModel;
 
 public interface LikeRepository extends JpaRepository<LikeModel, Long>{
 
+	LikeModel findByPostsIdAndUserId(Long postsId, Long userId);
+
 }

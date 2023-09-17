@@ -24,12 +24,20 @@ public class LikeService {
 
 	private LikeFactory likeFactory = new LikeFactory();
 
-	public void likePost(LikePostDTO dto) {
-		PostModel post = this.postService.getById(dto.getPostId());
-		UserModel user = this.userService.findById(dto.getUserId());
+	public Long likePost(LikePostDTO dto) {
+		LikeModel liked = this.likeRepository.findByPostsIdAndUserId(dto.getPostId(), dto.getUserId());
+		if (liked != null) {
+			this.likeRepository.delete(liked);
 
-		LikeModel like = this.likeFactory.buildModel(post, user);
+			PostModel post = this.postService.getById(dto.getPostId());
+			return (long) post.getLikes().size();
+		} else {
+			PostModel post = this.postService.getById(dto.getPostId());
+			UserModel user = this.userService.findById(dto.getUserId());
+			LikeModel like = this.likeFactory.buildModel(post, user);
 
-		this.likeRepository.save(like);
+			this.likeRepository.save(like);
+			return (long) post.getLikes().size();
+		}
 	}
 }

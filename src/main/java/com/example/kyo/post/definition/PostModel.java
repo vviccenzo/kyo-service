@@ -42,7 +42,7 @@ public class PostModel {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private UserModel author;
+	private UserModel user;
 
 	@ManyToOne
 	@JoinColumn(name = "community_id")

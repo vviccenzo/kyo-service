@@ -14,11 +14,12 @@ public class PostFactory {
 	public PostDTO buildDTO(PostModel model) {
 		return PostDTO
 				.builder()
-				.author(this.userFactory.buildDTO(model.getAuthor()))
+				.author(this.userFactory.buildDTO(model.getUser()))
 				.content(model.getContent())
 				.createdAt(model.getCreatedAt())
 				.community(null)
 				.id(model.getId())
+				.countLikes((long) model.getLikes().size())
 				.build();
 	}
 

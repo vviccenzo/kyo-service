@@ -44,16 +44,16 @@ public class PostService {
 			post.setCommunity(community);
 		}
 
-		post.setAuthor(user);
+		post.setUser(user);
 
 		this.postRepository.save(post);
 	}
 
 	public List<PostDTO> getAllByUserId(Long userId) {
-		return this.postRepository.findAllById(userId)
+		return this.postRepository.findAllByUserId(userId)
 				.stream()
 				.map(postFactory::buildDTO)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	public PostModel getById(Long postId) {

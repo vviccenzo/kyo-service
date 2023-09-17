@@ -17,7 +17,7 @@ public class LikeController {
 	private LikeService likeService;
 
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public void likePost(@ModelAttribute LikePostDTO dto) {
-		this.likeService.likePost(dto);
+	public Long likePost(@ModelAttribute LikePostDTO dto) {
+		return this.likeService.likePost(dto);
 	}
 }
