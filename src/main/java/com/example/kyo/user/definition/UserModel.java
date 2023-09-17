@@ -1,14 +1,18 @@
 package com.example.kyo.user.definition;
 
 import java.util.Date;
+import java.util.List;
 
+import com.example.kyo.community.definition.CommunityModel;
 import com.example.kyo.levelpermission.LevelPermissionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -43,6 +47,14 @@ public class UserModel {
 
 	@Column(name = "level_permission")
 	private LevelPermissionType levelPermission;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "members")
+	private List<CommunityModel> communitiesUser;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "admins")
+	private List<CommunityModel> communitiesAdmin;
 
 	public UserModel(Long id, String name, String email, String nickName, String password, Date createdAt,
 			LevelPermissionType levelPermission) {
