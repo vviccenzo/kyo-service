@@ -55,4 +55,8 @@ public class PostService {
 				.map(postFactory::buildDTO)
 				.collect(Collectors.toList());
 	}
+
+	public PostModel getById(Long postId) {
+		return this.postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not founded"));
+	}
 }

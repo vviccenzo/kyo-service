@@ -19,4 +19,5 @@ public class UserSaveBean extends GenericBean {
 	private String nickName;
 	private String password;
 	private LevelPermissionType levelPermissionType;
+	private String avatarPath;
 }

@@ -1,5 +1,6 @@
 package com.example.kyo.user;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.kyo.user.definition.UserDTO;
 import com.example.kyo.user.definition.UserModel;
 import com.example.kyo.user.definition.UserSaveBean;
+import com.example.kyo.user.definition.UserUpdateDTO;
 
 @RestController
 @RequestMapping(path = "/kyo/user")
@@ -22,13 +24,18 @@ public class UserController {
 	private UserService service;
 
 	@GetMapping
-	private List<UserDTO> findAll() {
+	public List<UserDTO> findAll() {
 		return this.service.findAll();
 	}
 
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private UserModel save(@ModelAttribute UserSaveBean bean) {
-	    return this.service.save(bean);
+	public UserModel save(@ModelAttribute UserSaveBean bean) throws IOException {
+		return this.service.save(bean);
+	}
+
+	@PostMapping(path = "/update-user", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public void update(@ModelAttribute UserUpdateDTO dto) throws IOException {
+		this.service.update(dto);
 	}
 
 }

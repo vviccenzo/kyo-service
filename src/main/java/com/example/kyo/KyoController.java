@@ -1,53 +1,25 @@
 package com.example.kyo;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import io.micrometer.common.util.StringUtils;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.kyo.definition.KyoLoginDTO;
+import com.example.kyo.user.UserService;
+import com.example.kyo.user.definition.UserDTO;
 
-@Controller
+@RestController
+@RequestMapping("/kyo")
 public class KyoController {
 
-	@RequestMapping("/")
-	public String index(HttpServletRequest request, Model model) {
-		String username = (String) request.getSession().getAttribute("username");
+	@Autowired
+	private UserService userService;
 
-		if(StringUtils.isBlank(username)) {
-			return "redirect:/login";
-		}
-
-		model.addAttribute("username", username);
-
-		return "chat";
-	}
-
-	@GetMapping(path = "/login")
-	public String showLoginPage() {
-		return "login";
-	}
-
-	@PostMapping(path = "/login")
-	public String doLogin(HttpServletRequest request, @RequestParam(defaultValue = "") String userName) {
-		userName = userName.trim();
-
-		if(StringUtils.isBlank(userName)) {
-			return "login";
-		}
-
-		request.getSession().setAttribute("username", userName);
-
-		return "redirect:/";
-	}
-
-	@RequestMapping(path = "/logout")
-	public String logout(HttpServletRequest request) {
-		request.getSession(true).invalidate();
-
-		return "redirect:/login";
+	@PostMapping(path = "/login", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public UserDTO doLogin(@ModelAttribute KyoLoginDTO dto) {
+		return this.userService.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
 	}
 }

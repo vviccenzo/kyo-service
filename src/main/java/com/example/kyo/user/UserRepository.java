@@ -10,4 +10,6 @@ import com.example.kyo.user.definition.UserModel;
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 
 	UserModel findByName(String name);
+
+	UserModel findByEmail(String email);
 }

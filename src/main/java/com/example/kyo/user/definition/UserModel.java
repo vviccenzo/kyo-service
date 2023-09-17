@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.kyo.community.definition.CommunityModel;
 import com.example.kyo.levelpermission.LevelPermissionType;
+import com.example.kyo.post.like.definition.LikeModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -33,7 +35,7 @@ public class UserModel {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	private String email;
 
 	@Column(name = "nickname")
@@ -45,6 +47,9 @@ public class UserModel {
 	@Column(name = "created_at")
 	private Date createdAt;
 
+	@Lob
+	private byte[] avatar;
+
 	@Column(name = "level_permission")
 	private LevelPermissionType levelPermission;
 
@@ -55,6 +60,10 @@ public class UserModel {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "admins")
 	private List<CommunityModel> communitiesAdmin;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "user")
+	private List<LikeModel> likes;
 
 	public UserModel(Long id, String name, String email, String nickName, String password, Date createdAt,
 			LevelPermissionType levelPermission) {

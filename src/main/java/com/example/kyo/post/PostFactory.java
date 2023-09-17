@@ -1,5 +1,7 @@
 package com.example.kyo.post;
 
+import java.util.Date;
+
 import com.example.kyo.post.definition.PostCreateDTO;
 import com.example.kyo.post.definition.PostDTO;
 import com.example.kyo.post.definition.PostModel;
@@ -7,7 +9,7 @@ import com.example.kyo.user.UserFactory;
 
 public class PostFactory {
 
-	private UserFactory userFactory;
+	private UserFactory userFactory = new UserFactory();
 
 	public PostDTO buildDTO(PostModel model) {
 		return PostDTO
@@ -24,6 +26,7 @@ public class PostFactory {
 		return PostModel
 				.builder()
 				.content(dto.getContent())
+				.createdAt(new Date())
 				.build();
 	}
 }

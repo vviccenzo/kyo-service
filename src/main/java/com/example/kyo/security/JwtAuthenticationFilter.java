@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,13 +17,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		if (token != null && token.startsWith("Bearer ")) {
 			token = token.substring(7); // Remova "Bearer "
-
-			try {
-				Jwts.parser().setSigningKey("your-secret-key").parseClaimsJws(token);
-				filterChain.doFilter(request, response);
-			} catch (SignatureException e) {
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			}
 		} else {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		}
