@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.kyo.user.definition.UserDTO;
+import com.example.kyo.user.definition.UserBean;
 import com.example.kyo.user.definition.UserModel;
 import com.example.kyo.user.definition.UserSaveBean;
 
@@ -16,7 +16,7 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 
-	public List<UserDTO> findAll() {
+	public List<UserBean> findAll() {
 		return new UserFactory().buildListBean(this.repository.findAll());
 	}
 

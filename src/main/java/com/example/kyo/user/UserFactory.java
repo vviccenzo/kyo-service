@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import com.example.kyo.user.definition.UserDTO;
+import com.example.kyo.user.definition.UserBean;
 import com.example.kyo.user.definition.UserModel;
 import com.example.kyo.user.definition.UserSaveBean;
 
@@ -23,12 +23,12 @@ public class UserFactory {
 		return model;
 	}
 
-	public List<UserDTO> buildListBean(List<UserModel> models) {
-		return models.stream().map(this::buildDTO).toList();
+	public List<UserBean> buildListBean(List<UserModel> models) {
+		return models.stream().map(this::buildBean).toList();
 	}
 
-	public UserDTO buildDTO(UserModel model) {
-		UserDTO bean = new UserDTO();
+	public UserBean buildBean(UserModel model) {
+		UserBean bean = new UserBean();
 		bean.setCreatedAt(model.getCreatedAt());
 		bean.setEmail(model.getEmail());
 		bean.setId(model.getId());
