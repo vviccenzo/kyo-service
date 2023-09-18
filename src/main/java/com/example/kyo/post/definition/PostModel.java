@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.kyo.community.definition.CommunityModel;
+import com.example.kyo.post.comment.definition.CommentModel;
 import com.example.kyo.post.like.definition.LikeModel;
 import com.example.kyo.user.definition.UserModel;
 
@@ -54,4 +55,7 @@ public class PostModel {
 
 	@OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<LikeModel> likes;
+
+	@OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<CommentModel> comments;
 }
