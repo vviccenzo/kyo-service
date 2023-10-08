@@ -1,6 +1,6 @@
 package com.example.kyo.user.definition;
 
-import com.example.kyo.generic.definition.GenericBean;
+import com.example.kyo.generic.definition.GenericDTO;
 import com.example.kyo.levelpermission.LevelPermissionType;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class UserSaveBean extends GenericBean {
+public class UserSaveBean extends GenericDTO {
 
 	private String name;
 	private String email;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.kyo.user.definition.UserDTO;
@@ -38,4 +39,8 @@ public class UserController {
 		this.service.update(dto);
 	}
 
+	@GetMapping(path = "/find-friends-by-user", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<UserDTO> findFriendsByUser(@RequestParam("user") Long userId) {
+		return this.service.findFriendsByUser(userId);
+	}
 }

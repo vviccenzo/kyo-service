@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.example.kyo.community.definition.CommunityModel;
 import com.example.kyo.levelpermission.LevelPermissionType;
+import com.example.kyo.notification.definition.NotificationModel;
 import com.example.kyo.post.like.definition.LikeModel;
+import com.example.kyo.user.friendRequest.definition.FriendRequestModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -15,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -65,8 +68,23 @@ public class UserModel {
 	@ManyToMany(mappedBy = "user")
 	private List<LikeModel> likes;
 
-	public UserModel(Long id, String name, String email, String nickName, String password, Date createdAt,
-			LevelPermissionType levelPermission) {
+	@JsonIgnore
+	@ManyToMany
+	private List<UserModel> friends;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "receiver")
+	private List<FriendRequestModel> friendRequestsReceived;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "sender")
+	private List<FriendRequestModel> friendRequestsSended;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<NotificationModel> notifications;
+
+	public UserModel(Long id, String name, String email, String nickName, String password, Date createdAt, LevelPermissionType levelPermission) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -75,5 +93,13 @@ public class UserModel {
 		this.password = password;
 		this.createdAt = createdAt;
 		this.levelPermission = levelPermission;
+	}
+
+	public void addRequestSender(FriendRequestModel model) {
+		this.friendRequestsSended.add(model);
+	}
+
+	public void addRequestReceiver(FriendRequestModel model) {
+		this.friendRequestsReceived.add(model);
 	}
 }

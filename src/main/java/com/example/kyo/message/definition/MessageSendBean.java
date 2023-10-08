@@ -2,7 +2,7 @@ package com.example.kyo.message.definition;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.kyo.generic.definition.GenericBean;
+import com.example.kyo.generic.definition.GenericDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class MessageSendBean extends GenericBean {
+public class MessageSendBean extends GenericDTO {
 
 	private String message;
 	private Long userId;

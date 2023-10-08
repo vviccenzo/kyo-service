@@ -2,7 +2,7 @@ package com.example.kyo.user.definition;
 
 import java.util.Date;
 
-import com.example.kyo.generic.definition.GenericBean;
+import com.example.kyo.generic.definition.GenericDTO;
 import com.example.kyo.levelpermission.LevelPermissionType;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class UserBean extends GenericBean{
+public class UserBean extends GenericDTO{
 	
 	private String name;
 	private String email;

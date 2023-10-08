@@ -2,6 +2,8 @@ package com.example.kyo.user;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class UserService {
 	private UserFactory factory = new UserFactory();
 
 	public List<UserDTO> findAll() {
-		return new UserFactory().buildListBean(this.repository.findAll());
+		return this.factory.buildListBean(this.repository.findAll());
 	}
 
 	@Transactional
@@ -31,7 +33,12 @@ public class UserService {
 	}
 
 	public UserModel findById(Long id) {
-		return this.repository.findById(id).get();
+		Optional<UserModel> model = this.repository.findById(id);
+		if(model.isEmpty()) {
+			throw new RuntimeException("User not found.");
+		}
+
+		return model.get();
 	}
 
 	public UserModel findByName(String name) {
@@ -54,5 +61,13 @@ public class UserService {
 		}
 
 		throw new RuntimeException("User is not valid");
+	}
+
+	public void saveUser(UserModel user) {
+		this.repository.save(user);
+	}
+
+	public List<UserDTO> findFriendsByUser(Long userId) {
+		return this.findById(userId).getFriends().stream().map(f -> this.factory.buildDTO(f)).collect(Collectors.toList());
 	}
 }

@@ -2,7 +2,7 @@ package com.example.kyo.message.definition;
 
 import java.util.Date;
 
-import com.example.kyo.generic.definition.GenericBean;
+import com.example.kyo.generic.definition.GenericDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MessageBean extends GenericBean {
+public class MessageBean extends GenericDTO {
 
 	private String message;
 	private Long userId;
